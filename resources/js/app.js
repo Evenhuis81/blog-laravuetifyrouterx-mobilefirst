@@ -9,8 +9,9 @@ import router from './plugins/router.js'
 import store from './store/index'
 import Vuex from "vuex";
 Vue.use(Vuex);
-import * as moment from 'moment';
-Vue.prototype.$moment = moment;
+// import * as moment from 'moment';
+// Vue.prototype.$moment = moment;
+window.moment = require('moment');
 
 new Vue({
     store,

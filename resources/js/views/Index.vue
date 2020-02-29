@@ -15,6 +15,7 @@ export default {
   mounted() {
     // this.$store.dispatch("fetchBlogs");
     // this.$store.dispatch("fetchCategories");
+    console.log(moment().format());
   },
   methods: {
     // blogCreatedFromNow(date) {
