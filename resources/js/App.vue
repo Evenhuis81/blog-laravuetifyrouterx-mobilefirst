@@ -2,7 +2,6 @@
   <!-- <v-app :style="'background: #f5f5f5'"> -->
   <!-- class="grey lighten-4 -->
       <v-app>
-
     <Navbar />
     <v-content>
       <router-view></router-view>
@@ -17,6 +16,9 @@ export default {
   components: { Navbar },
   data: () => ({
     //
-  })
+  }),
+  mounted() {
+    //
+    }
 };
 </script>

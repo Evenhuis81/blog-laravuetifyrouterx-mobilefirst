@@ -1,5 +1,18 @@
 <template>
-  <div></div>
+  <div>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis dolorum voluptate reiciendis commodi consequuntur doloremque illum facere ipsum tempore dicta, adipisci animi, nihil eum amet. Fugit, deleniti inventore. Ad, magni?</p>
+  </div>
 </template>
 
     <script>
@@ -12,10 +25,10 @@ export default {
     };
   },
   // name: "Blogs",
-  mounted() {
+  created() {
     // this.$store.dispatch("fetchBlogs");
     // this.$store.dispatch("fetchCategories");
-    console.log(moment().format());
+    // console.log(moment().format());
   },
   methods: {
     // blogCreatedFromNow(date) {
