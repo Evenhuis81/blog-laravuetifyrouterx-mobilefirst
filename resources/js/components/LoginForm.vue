@@ -8,6 +8,19 @@
       </v-btn>
     </template>
     <v-card>
+      <v-tabs v-model="tab" background-color="primary" dark>
+        <v-tab v-for="item in items" :key="item.tab">{{ item.tab }}</v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item v-for="item in items" :key="item.tab">
+          <v-card flat>
+            <v-card-text>{{ item.content }}</v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card>
+    <v-card>
       <v-card-title>
         <span class="headline">Login</span>
         <v-spacer></v-spacer>
@@ -17,10 +30,10 @@
       <v-card-text>
         <v-container>
           <v-row>
-            <!-- <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" sm="6" md="4">
               <v-text-field label="Legal first name*" required></v-text-field>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" sm="6" md>
               <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
@@ -30,14 +43,14 @@
                 persistent-hint
                 required
               ></v-text-field>
-            </v-col>-->
+            </v-col>
             <v-col cols="12">
               <v-text-field label="Email*" required></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field label="Password*" type="password" required></v-text-field>
             </v-col>
-            <!-- <v-col cols="12" sm="6">
+            <v-col cols="12" sm="6">
               <v-select :items="['0-17', '18-29', '30-54', '54+']" label="Age*" required></v-select>
             </v-col>
             <v-col cols="12" sm="6">
@@ -46,7 +59,7 @@
                 label="Interests"
                 multiple
               ></v-autocomplete>
-            </v-col>-->
+            </v-col>
           </v-row>
         </v-container>
         <small>*indicates required field</small>

@@ -17,6 +17,7 @@
 
     <script>
 // import { mapGetters } from "vuex";
+import * as moment from "moment";
 
 export default {
   data() {
@@ -28,16 +29,16 @@ export default {
   created() {
     // this.$store.dispatch("fetchBlogs");
     // this.$store.dispatch("fetchCategories");
-    // console.log(moment().format());
+    console.log(moment().format());
   },
   methods: {
     // blogCreatedFromNow(date) {
-      // return this.$moment(date).fromNow();
+    // return this.$moment(date).fromNow();
     // }
     // deleteBlog(blog) {
     //   this.$store.dispatch("deleteBlog", blog);
     // }
-  },
+  }
   // computed: {
   //   ...mapGetters(["blogs", "categories"])
   // }

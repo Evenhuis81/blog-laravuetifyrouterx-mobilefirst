@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
 // import Show from '../views/Show.vue'
-// import About from '../views/About.vue'
+import About from '../views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -14,11 +14,11 @@ const routes = [
     // component: require('../views/Index.vue').default
     // component: _ => import('../views/Index.vue')
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   component: About
-  // },
+  {
+    path: '/about',
+    name: 'about',
+    component: About
+  },
   // {
   //   path: '/blog/:id',
   //   name: 'blog',
