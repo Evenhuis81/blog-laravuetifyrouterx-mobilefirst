@@ -7,7 +7,7 @@
         <v-icon right>mdi-login-variant</v-icon>
       </v-btn>
     </template>
-    <v-card>
+    <!-- <v-card>
       <v-tabs v-model="tab" background-color="primary" dark>
         <v-tab v-for="item in items" :key="item.tab">{{ item.tab }}</v-tab>
       </v-tabs>
@@ -19,7 +19,7 @@
           </v-card>
         </v-tab-item>
       </v-tabs-items>
-    </v-card>
+    </v-card>-->
     <v-card>
       <v-card-title>
         <span class="headline">Login</span>
