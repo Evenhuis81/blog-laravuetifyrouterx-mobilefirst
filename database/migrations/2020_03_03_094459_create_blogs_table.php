@@ -18,6 +18,7 @@ class CreateBlogsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });
     }

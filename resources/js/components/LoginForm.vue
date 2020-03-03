@@ -7,6 +7,10 @@
         <v-icon right>mdi-login-variant</v-icon>
       </v-btn>
     </template>
+    <v-tabs fixed-tabs>
+      <v-tab>Log In</v-tab>
+      <v-tab>Register</v-tab>
+    </v-tabs>
     <!-- <v-card>
       <v-tabs v-model="tab" background-color="primary" dark>
         <v-tab v-for="item in items" :key="item.tab">{{ item.tab }}</v-tab>
@@ -21,27 +25,26 @@
       </v-tabs-items>
     </v-card>-->
     <v-card>
-      <v-card-title>
+      <!-- <v-card-title>
         <span class="headline">Login</span>
         <v-spacer></v-spacer>
         <span class="subtitle-1 mr-2" v-text="'Not registered yet?'"></span>
         <register-form></register-form>
-      </v-card-title>
+      </v-card-title>-->
       <v-card-text>
         <v-container>
           <v-row>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="Legal first name*" required></v-text-field>
+              <v-text-field label="Last Name*" required></v-text-field>
             </v-col>
-            <v-col cols="12" sm="6" md>
+            <!-- <v-col cols="12" sm="6" md>
               <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
-            </v-col>
+            </v-col>-->
             <v-col cols="12" sm="6" md="4">
               <v-text-field
-                label="Legal last name*"
-                hint="example of persistent helper text"
+                label="First Name"
+                hint="just a credential is also accepted"
                 persistent-hint
-                required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
