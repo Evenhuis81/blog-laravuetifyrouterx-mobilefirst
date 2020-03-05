@@ -5,42 +5,30 @@
 
       <router-link to="/" class="d-flex align-center">
         <v-img src="/storage/logo_inverted.png" height="35" contain max-width="55"></v-img>
-        <v-toolbar-title to="/" class="ml-4 white--text" v-text="spaTitle"></v-toolbar-title>
       </router-link>
-      <v-spacer></v-spacer>
 
-      <!-- <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>-->
+      <v-spacer />
 
-      <!-- <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>-->
+      <v-toolbar-title to="/" class="ml-4 white--text" v-text="spaTitle"></v-toolbar-title>
 
-      <login-form></login-form>
-      <!-- <register-form> -->
+      <v-spacer />
 
-      <v-menu bottom left :offset-y="true">
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item
-            v-for="(menuItem, index) in menuItems"
-            :key="index"
-            router
-            :to="menuItem.route"
-          >
-            <v-list-item-title>{{ menuItem.name }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <user-navigation />
     </v-app-bar>
 
     <v-navigation-drawer app clipped v-model="drawer">
+      <v-col class="mt-5" align="center" v-if="!loggedIn">
+        <img src="/storage/navdrawerlogo_1833982-200.png" height="50" alt="avatar" />
+        <p class="title mt-1">Not Logged In</p>
+      </v-col>
+
+      <v-col class="mt-5" align="center" v-else-if="loggedIn">
+        <img src="/storage/navdrawerlogo_1833982-200.png" height="50" alt="avatar" />
+        <p class="title mt-1">Logged In</p>
+      </v-col>
+
+      <v-divider></v-divider>
+
       <v-list nav dense>
         <v-list-item-group active-class="deep-purple--text text--accent-4">
           <v-list-item>
@@ -55,7 +43,7 @@
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -67,51 +55,18 @@
 import { SPA_TITLE } from "../constants";
 // let spa_title = process.env.MIX_APP_NAME;
 
-import loginForm from "./LoginForm.vue";
+import userNavigation from "./UserNavigation.vue";
 
 export default {
-  components: { loginForm },
+  components: { userNavigation },
   data: () => ({
+    loggedIn: false,
     spaTitle: SPA_TITLE,
     drawer: false,
     menuItems: [{ name: "About Us", route: "/about" }]
-    // dialog: false,
-    //     testlist: [
-    //       { title: "Click Me" },
-    //       { title: "Click Me" },
-    //       { title: "Click Me" },
-    //       { title: "Click Me 2" }
-    //     ],
-    //     offset: false,
-
-    //     sdf: "",
-    //     loading: false,
-    //     searchfield: "",
-    //     items: [
-    //       { title: "Dashboard", icon: "mdi-magnify", route: "/" },
-    //       { title: "Account", icon: "", route: "about" }
-    //     ]
-    //   };
-    // },
-    // methods: {
-    //   clearSearch() {
-    //     this.searchfield = "";
-    //   },
-    //   search() {
-    //     if (this.searchfield === "" || null) {
-    //       this.loading = false;
-    //     } else {
-    //       this.loading = "white";
-    //     }
   }),
   created() {
     //
   }
 };
 </script>
-
-<style>
-/* .v-toolbar__title {
-  cursor: pointer;
-} */
-</style>

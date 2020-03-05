@@ -33,7 +33,7 @@ export default {
   },
   // name: "Blogs",
   mounted() {
-    this.$store.dispatch("fetchCategories");
+    // this.$store.dispatch("fetchCategories");
     setTimeout(() => {
       this.$store.dispatch("fetchBlogs");
     }, 1000);
@@ -47,7 +47,7 @@ export default {
     // }
   },
   computed: {
-    ...mapGetters(["blogs", "categories"])
+    ...mapGetters(["blogs"])
   }
 };
 </script>
