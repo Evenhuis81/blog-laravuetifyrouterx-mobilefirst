@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <!-- <v-card> -->
     <!-- <v-card>
     <v-card-text>
       <v-container>
@@ -22,7 +22,7 @@
       <v-btn color="primary" text @click="as">Login</v-btn>
     </v-card-actions>
     </v-card>-->
-    <v-form ref="form" v-model="valid" @submit.prevent="submitForm">
+    <v-form ref="form" v-model="valid" @submit.prevent="submitLoginForm">
       <v-container>
         <v-row>
           <v-col cols="12" sm="6">
@@ -43,9 +43,9 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <span class="red--text">{{ errors.frontEndFormValidation }}</span>
+        <span class="red--text">{{ errors.loginForm }}</span>
         <v-card-actions>
-          <v-btn text :loading="loading" :disabled="!valid" color="primary" type="submit">Login</v-btn>
+          <v-btn text outlined :loading="loading" :disabled="!valid" color="primary" type="submit">Login</v-btn>
           <v-spacer></v-spacer>
           <v-btn :disabled="loading" text @click="closeDialog">Close</v-btn>
         </v-card-actions>
@@ -53,7 +53,7 @@
         <!-- <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
       </v-container>
     </v-form>
-  </v-card>
+  <!-- </v-card> -->
 </template>
 
 <script>
@@ -63,7 +63,7 @@ export default {
   data: () => ({
     loading: false,
     errors: {
-      frontEndFormValidation: ""
+      loginForm: ""
     },
     form: {
       email: "",
@@ -84,24 +84,25 @@ export default {
   }),
   methods: {
     closeDialog() {
+      this.errors.loginForm = "";
+      this.$refs.form.reset();
       this.$emit("close");
     },
     ...mapActions({
       signIn: "auth/signIn"
     }),
-    submitForm() {
+    submitLoginForm() {
       if (this.$refs.form.validate()) {
         this.$emit("disable");
         this.loading = true;
         this.signIn(this.form);
       } else {
-        this.errors.frontEndFormValidation =
-          "Something went wrong with validation, contact support!!";
+        this.errors.loginForm = "Something went wrong with validation, contact support!!";
       }
-    }
-    // reset() {
-    //   this.$refs.form.reset();
-    // },
+    },
+    resetLoginForm() {
+      this.$refs.form.reset();
+    },
     // resetValidation() {
     //   this.$refs.form.resetValidation();
     // }

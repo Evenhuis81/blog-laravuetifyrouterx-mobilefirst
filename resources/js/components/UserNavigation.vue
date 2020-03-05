@@ -6,14 +6,14 @@
           <v-icon right>mdi-login-variant</v-icon>
         </v-btn>
       </template>
-      <v-tabs fixed-tabs>
-        <v-tab>Log In</v-tab>
-        <v-tab :disabled="registerDisabled">Register</v-tab>
+      <v-tabs fixed-tabs v-model="tab">
+        <v-tab :disabled="loginDisabled" @click="clearRegisterForm">Log In</v-tab>
+        <v-tab :disabled="registerDisabled" @click="clearLoginForm">Register</v-tab>
         <v-tab-item>
-          <login-form @close="closeDialog" @disable="disableRegister" />
+          <login-form ref="loginForm" @close="closeDialog" @disable="disableRegister" />
         </v-tab-item>
         <v-tab-item>
-          <register-form />
+          <register-form ref="registerForm" @close="closeDialog" @disable="disableLogin" />
         </v-tab-item>
       </v-tabs>
     </v-dialog>
@@ -46,7 +46,9 @@ export default {
   components: { registerForm, loginForm },
   data() {
     return {
+      tab: null,
       registerDisabled: false,
+      loginDisabled: false,
       dialogOpen: false,
       loggedIn: false
       // loginDialog: false
@@ -56,14 +58,24 @@ export default {
   //   ...mapState(["signInOutRegDialog"])
   // },
   methods: {
+    clearLoginForm() {
+      this.$refs.loginForm.resetLoginForm()
+    },
+    clearRegisterForm() {
+      this.$refs.registerForm.resetRegisterForm()
+    },
     disableRegister() {
       this.registerDisabled = true;
+    },
+    disableLogin() {
+      this.loginDisabled = true;
     },
     openDialog() {
       this.dialogOpen = true;
       // this.$store.commit("openSignInOutRegDialog");
     },
     closeDialog() {
+      this.tab = null;
       this.dialogOpen = false;
     }
   }
