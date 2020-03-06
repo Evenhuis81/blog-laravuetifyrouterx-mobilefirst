@@ -1,48 +1,75 @@
 export default {
     namespaced: true,
     state: {
+        loggedInSnackbar: false,
+        loginLoading: false,
+        registerLoading: false,
         token: null,
         user: null
     },
     mutations: {
-        SET_TOKEN(state, token) {
+        openSnackbar(state) {
+            state.loggedInSnackbar = true
+        },
+        closeSnackbar(state) {
+            state.loggedInSnackbar = false
+        },
+        set_token(state, token) {
             state.token = token;
         },
-        SET_USER(state, data) {
+        set_user(state, data) {
             state.user = data
+        },
+        set_log_load(state) {
+            state.loginLoading = true;
+        },
+        deset_log_load(state) {
+            state.loginLoading = false;
         }
     },
     actions: {
+        setLoginLoading({ commit }) {
+            commit('set_log_load');
+        },
         signIn({ dispatch }, credentials) {
-            // let response = await axios.post("api/auth/signin", credentials);
-            // dispatch('attempt', response.data.token);
             axios.post("api/auth/signin", credentials).then(response => dispatch('attempt', response.data.token))
         },
         attempt({ commit }, token) {
-            commit('SET_TOKEN', token);
+            commit('set_token', token);
 
             axios.get('api/auth/me', {
                 headers: {
                     'Authorization': 'Bearer' + token
                 }
-            }).then(response => commit('SET_USER', response.data))
+            }).then(response => {
+                commit('set_user', response.data)
+                commit('deset_log_load')
+                commit("openSnackbar")
+
+            })
                 .catch(e => {
                     console.log(e)
-                    commit('SET_TOKEN', null)
-                    commit('SET_USER', null)
+                    commit('set_token', null)
+                    commit('set_user', null)
+                    commit('deset_log_load')
                 })
-
-            // try {
-            //     let response = await axios.get('api/auth/me', {
-            //         headers: {
-            //             'Authorization': 'Bearer' + token
-            //         }
-            //     })
-            //     commit('SET_USER', response.data)
-            // } catch (e) {
-            //     commit('SET_TOKEN', null)
-            //     commit('SET_USER', null)
-            // }
+        }
+    },
+    getters: {
+        loggedInSnackbar(state) {
+            return state.loggedInSnackbar
+        },
+        authenticated(state) {
+            return state.token && state.user
+        },
+        user(state) {
+            return state.user;
+        },
+        loginLoading: state => {
+            return state.loginLoading;
+        },
+        registerLoading: state => {
+            return state.registerLoading;
         }
     }
 }

@@ -18,17 +18,22 @@
         <v-btn text color="primary">Read Full Article</v-btn>
       </v-card-actions>
     </v-card>
+    <!-- <v-snackbar top :value="snackbar" @change="closeSnackbar" :timeout="timeout" class="mt-5">
+      You are now logged in...
+      <v-btn color="blue" text @click="closeSnackbar">Close</v-btn>
+    </v-snackbar>-->
   </div>
 </template>
 
     <script>
 import { mapGetters } from "vuex";
+// import { mapMutations } from "vuex";
 import * as moment from "moment";
 
 export default {
   data() {
     return {
-      //
+      timeout: 2000
     };
   },
   // name: "Blogs",
@@ -39,6 +44,7 @@ export default {
     }, 1000);
   },
   methods: {
+    // ...mapMutations({ closeSnackbar: "auth/closeSnackbar" }),
     blogCreatedFromNow(date) {
       return moment(date).fromNow();
     }
@@ -47,7 +53,8 @@ export default {
     // }
   },
   computed: {
-    ...mapGetters(["blogs"])
+    ...mapGetters({ blogs: "blogs" })
+    // how to combine array and object in map?
   }
 };
 </script>

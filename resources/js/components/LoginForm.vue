@@ -1,67 +1,48 @@
 <template>
-  <!-- <v-card> -->
-    <!-- <v-card>
-    <v-card-text>
-      <v-container>
-        <v-row>
-          <v-col cols="12">
-            <v-text-field label="Email" required></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-text-field label="Password*" type="password" required></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-select :items="['0-17', '18-29', '30-54', '54+']" label="Age*" required></v-select>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn text @click="closeDialog">Close</v-btn>
-      <v-btn color="primary" text @click="as">Login</v-btn>
-    </v-card-actions>
-    </v-card>-->
-    <v-form ref="form" v-model="valid" @submit.prevent="submitLoginForm">
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="form.email" :rules="rules.email" label="E-mail" required></v-text-field>
-          </v-col>
+  <v-form ref="form" v-model="valid" @submit.prevent="submitLoginForm">
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field v-model="form.email" :rules="rules.email" label="E-mail" required></v-text-field>
+        </v-col>
 
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="form.password"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.password.required, rules.password.min]"
-              :type="showPassword ? 'text' : 'password'"
-              label="Password"
-              :hint="form.password.length >= 5 ? '' : 'At least 5 characters'"
-              counter
-              @click:append="showPassword = !showPassword"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <span class="red--text">{{ errors.loginForm }}</span>
-        <v-card-actions>
-          <v-btn text outlined :loading="loading" :disabled="!valid" color="primary" type="submit">Login</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn :disabled="loading" text @click="closeDialog">Close</v-btn>
-        </v-card-actions>
-        <!-- <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn> -->
-        <!-- <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
-      </v-container>
-    </v-form>
-  <!-- </v-card> -->
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="form.password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.password.required, rules.password.min]"
+            :type="showPassword ? 'text' : 'password'"
+            label="Password"
+            :hint="form.password.length >= 5 ? '' : 'At least 5 characters'"
+            counter
+            @click:append="showPassword = !showPassword"
+            required
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <span class="red--text">{{ errors.loginForm }}</span>
+      <v-card-actions>
+        <v-btn
+          text
+          outlined
+          :loading="loginLoading"
+          :disabled="!valid"
+          color="primary"
+          type="submit"
+        >Login</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn :disabled="loginLoading" text @click="closeDialog">Close</v-btn>
+      </v-card-actions>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   data: () => ({
-    loading: false,
     errors: {
       loginForm: ""
     },
@@ -82,27 +63,37 @@ export default {
     showPassword: false,
     valid: true
   }),
+  computed: {
+    ...mapGetters({ loginLoading: "auth/loginLoading" })
+  },
   methods: {
     closeDialog() {
-      this.errors.loginForm = "";
-      this.$refs.form.reset();
+      this.resetLoginForm();
       this.$emit("close");
     },
     ...mapActions({
-      signIn: "auth/signIn"
+      signIn: "auth/signIn",
+      setLoginLoading: "auth/setLoginLoading"
     }),
     submitLoginForm() {
       if (this.$refs.form.validate()) {
-        this.$emit("disable");
-        this.loading = true;
+        // this.$emit("disable");
+        // this.loading = true;
+        this.setLoginLoading();
         this.signIn(this.form);
       } else {
-        this.errors.loginForm = "Something went wrong with validation, contact support!!";
+        this.errors.loginForm =
+          "Something went wrong with validation, contact support!!";
       }
     },
     resetLoginForm() {
-      this.$refs.form.reset();
-    },
+      this.showPassword = false;
+      this.errors.loginForm = "";
+      this.form.email = "";
+      this.form.password = "";
+      // this.$refs.form.reset();
+      this.$refs.form.resetValidation();
+    }
     // resetValidation() {
     //   this.$refs.form.resetValidation();
     // }

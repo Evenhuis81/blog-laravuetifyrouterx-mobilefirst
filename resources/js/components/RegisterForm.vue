@@ -4,42 +4,40 @@
   <!-- <v-btn color="primary" dark v-on="on">Open Dialog</v-btn> -->
   <!-- <v-btn v-on="on" color="red darken-1" outlined>Register</v-btn> -->
   <!-- </template> -->
-   <v-form ref="form" v-model="valid" @submit.prevent="submitRegisterForm">
-      <v-container>
-        <v-row>
+  <v-form ref="form" v-model="valid" @submit.prevent="submitRegisterForm">
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field v-model="form.name" :rules="rules.name" label="Username" required></v-text-field>
+        </v-col>
 
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="form.name" :rules="rules.name" label="Username" required></v-text-field>
-          </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field v-model="form.email" :rules="rules.email" label="E-mail" required></v-text-field>
+        </v-col>
 
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="form.email" :rules="rules.email" label="E-mail" required></v-text-field>
-          </v-col>
-
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="form.password"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.password.required, rules.password.min]"
-              type="password"
-              label="Password"
-              :hint="form.password.length >= 5 ? '' : 'At least 5 characters'"
-              counter
-              @click:append="showPassword = !showPassword"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <span class="red--text">{{ errors.registerForm }}</span>
-        <small>*indicates required field</small>
-        <v-card-actions>
-          <v-btn outlined :loading="loading" :disabled="!valid" color="primary" type="submit">Register</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn text @click="closeDialog">Close</v-btn>
-        </v-card-actions>
-
-      </v-container>
-    </v-form>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="form.password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.password.required, rules.password.min]"
+            type="password"
+            label="Password"
+            :hint="form.password.length >= 5 ? '' : 'At least 5 characters'"
+            counter
+            @click:append="showPassword = !showPassword"
+            required
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <span class="red--text">{{ errors.registerForm }}</span>
+      <small>*indicates required field</small>
+      <v-card-actions>
+        <v-btn outlined :loading="loading" :disabled="!valid" color="primary" type="submit">Register</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn text @click="closeDialog">Close</v-btn>
+      </v-card-actions>
+    </v-container>
+  </v-form>
   <!-- </v-dialog> -->
 </template>
 
@@ -54,11 +52,12 @@ export default {
         registerForm: ""
       },
       form: {
+        name: "",
         email: "",
         password: ""
       },
       rules: {
-        name: "df",
+        name: [v => !!v || "Username is required"],
         email: [
           v => !!v || "E-mail is required",
           v => /.+@.+\..+/.test(v) || "E-mail must be valid"
@@ -72,8 +71,9 @@ export default {
       valid: true
     };
   },
-    methods: {
+  methods: {
     closeDialog() {
+      this.resetRegisterForm();
       this.$emit("close");
     },
     ...mapActions({
@@ -85,12 +85,18 @@ export default {
         this.loading = true;
         this.signIn(this.form);
       } else {
-        this.errors.registerForm = "Something went wrong with validation, contact support!!";
+        this.errors.registerForm =
+          "Something went wrong with validation, contact support!!";
       }
     },
     resetRegisterForm() {
-      this.$refs.form.reset();
-    },
+      this.showPassword = false;
+      this.errors.registerForm = "";
+      this.form.name = "";
+      this.form.email = "";
+      this.form.password = "";
+      this.$refs.form.resetValidation();
+    }
   }
 };
 </script>
