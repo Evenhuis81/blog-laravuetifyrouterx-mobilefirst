@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
 // import Show from '../views/Show.vue'
 import About from '../views/About.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,13 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    component: About
+    component: About,
+    // beforeEnter: (to, from, next) => {
+    //   if (!store.getters['auth/authenticated'])
+    //     return next({
+    //       name: 'signin'
+    //     })
+    // }
   },
   // {
   //   path: '/blog/:id',

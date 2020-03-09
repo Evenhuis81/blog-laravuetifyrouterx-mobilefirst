@@ -29,27 +29,11 @@
         <v-list-item @click="loggedIn = true">
           <v-list-item-title>Dashboard</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="loggedIn = true">
+        <v-list-item @click="signOut">
           <v-list-item-title>Log Out</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
-
-    <v-dialog v-model="testDialog" max-width="290">
-      <v-card>
-        <v-card-title class="headline">Use Google's location service?</v-card-title>
-
-        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
-
-          <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -59,12 +43,13 @@ import loginForm from "./LoginForm.vue";
 // import { mapState } from "vuex";
 import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   components: { registerForm, loginForm },
   data() {
     return {
-      testDialog: true,
+      testDialog: false,
       timeout: 2000,
       tab: null,
       dialogOpen: false
@@ -76,6 +61,7 @@ export default {
       loginLoading: "auth/loginLoading",
       registerLoading: "auth/registerLoading",
       authenticated: "auth/authenticated"
+      // user: "auth/user"
     })
     //   ...mapState(["signInOutRegDialog"])
     // snackbar: {
@@ -88,6 +74,16 @@ export default {
     // }
   },
   methods: {
+    ...mapActions({
+      signOutAction: "auth/signOut"
+    }),
+    signOut() {
+      this.signOutAction().then(() => {
+        if (this.$route.path !== "/") {
+          this.$router.push({ path: "/" });
+        }
+      });
+    },
     ...mapMutations({ closeSnackbar: "auth/closeSnackbar" }),
     clearLoginForm() {
       this.tab === 1 ? "" : this.$refs.loginForm.resetLoginForm();
@@ -104,6 +100,8 @@ export default {
     // },
     openDialog() {
       this.dialogOpen = true;
+      // this.$refs.loginForm.autoFocus();
+
       // this.$store.commit("openSignInOutRegDialog");
     },
     closeDialog() {

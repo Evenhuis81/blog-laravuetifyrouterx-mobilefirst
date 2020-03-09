@@ -24,7 +24,7 @@
 
       <v-col class="mt-5" align="center" v-else-if="authenticated">
         <img src="/storage/2786494-200.png" height="50" alt="avatar" />
-        <p class="title mt-1">Logged In</p>
+        <p class="title mt-1">{{ user.name }}</p>
       </v-col>
 
       <v-list nav dense>
@@ -38,7 +38,7 @@
             <v-list-item-title>Index</v-list-item-title>
           </v-list-item>
 
-          <v-list-item router to="/about">
+          <v-list-item router to="/about" v-if="authenticated">
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
@@ -66,7 +66,7 @@ export default {
     menuItems: [{ name: "About Us", route: "/about" }]
   }),
   computed: {
-    ...mapGetters({ authenticated: "auth/authenticated" })
+    ...mapGetters({ authenticated: "auth/authenticated", user: "auth/user" })
   },
   created() {
     //
