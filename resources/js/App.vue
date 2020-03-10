@@ -27,6 +27,7 @@
 <script>
 import Navbar from "./components/Navbar";
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 // import { mapActions } from "vuex";
 // import { mapMutations } from "vuex";
 
@@ -47,9 +48,7 @@ export default {
     }
   },
   methods: {
-    // ...mapActions({
-    //   closeSignedInDialog: "auth/closeSignedInDialog"
-    // }),
+    ...mapActions({ verifyToken: "auth/verifyToken" }),
     toIndex() {
       // console.log(this.$router.path);
       this.$store.dispatch("auth/closeSignedInDialog");
@@ -66,9 +65,6 @@ export default {
     }
 
     // ...mapMutations({ signedInDialog: "auth/signedInDialog" })
-  },
-  mounted() {
-    //
   }
 };
 </script>

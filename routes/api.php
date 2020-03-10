@@ -1,13 +1,23 @@
 <?php
 
-use Illuminate\Http\Request;
-
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
-    Route::post('signin', 'SignInController');
-    Route::post('signout', 'SignOutController');
-
-    Route::get('me', 'MeController');
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
 });
+
+// use Illuminate\Http\Request;
+
+// Route::group(['prefix' => 'auth'], function() {
+//     Route::post('signin', 'AuthController@');
+//     Route::post('signout', 'SignOutController');
+
+//     Route::get('me', 'MeController');
+// });
 
 // Route::post('blogs', 'BlogController@store');
 Route::get('blogs', 'BlogController@index');

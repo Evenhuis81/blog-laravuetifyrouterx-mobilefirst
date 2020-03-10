@@ -69,9 +69,9 @@ export default {
     ...mapGetters({ loginLoading: "auth/loginLoading" })
   },
   methods: {
-    autoFocus() {
-      console.log("hi");
-    },
+    // autoFocus() {
+    //   console.log("hi");
+    // },
     closeDialog() {
       this.resetLoginForm();
       this.$emit("close");

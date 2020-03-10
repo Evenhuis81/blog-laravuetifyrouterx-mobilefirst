@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-dialog :value="dialogOpen" persistent max-width="600px" v-if="!authenticated">
+    <div v-if="unverifiedToken">
+      <v-btn icon>
+        <v-icon>mdi-account-remove</v-icon>
+      </v-btn>
+    </div>
+    <v-dialog :value="dialogOpen" persistent max-width="600px" v-else-if="!authenticated">
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on" @click="openDialog">
           <v-icon>mdi-login-variant</v-icon>
@@ -60,7 +65,8 @@ export default {
       snackbar: "auth/loggedInSnackbar",
       loginLoading: "auth/loginLoading",
       registerLoading: "auth/registerLoading",
-      authenticated: "auth/authenticated"
+      authenticated: "auth/authenticated",
+      unverifiedToken: "auth/unverifiedToken"
       // user: "auth/user"
     })
     //   ...mapState(["signInOutRegDialog"])
@@ -75,7 +81,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      signOutAction: "auth/signOut"
+      signOutAction: "auth/signOut",
+      verifyToken: "auth/verifyToken"
     }),
     signOut() {
       this.signOutAction().then(() => {
@@ -107,6 +114,11 @@ export default {
     closeDialog() {
       this.tab = null;
       this.dialogOpen = false;
+    }
+  },
+  created() {
+    if (this.unverifiedToken) {
+      this.verifyToken();
     }
   }
 };
