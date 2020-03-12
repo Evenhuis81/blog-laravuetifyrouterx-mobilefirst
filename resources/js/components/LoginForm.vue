@@ -77,7 +77,7 @@ export default {
       this.$emit("close");
     },
     ...mapActions({
-      signIn: "auth/signIn",
+      login: "auth/login",
       setLoginLoading: "auth/setLoginLoading",
       signedInDialog: "auth/openSignedInDialog"
     }),
@@ -85,8 +85,8 @@ export default {
       if (this.$refs.form.validate()) {
         // this.$emit("disable");
         // this.loading = true;
-        this.setLoginLoading();
-        this.signIn(this.form);
+        // this.setLoginLoading();
+        this.login(this.form);
         // this.signedInDialog();
       } else {
         this.errors.loginForm =

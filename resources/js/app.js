@@ -1,5 +1,7 @@
-// lodash, axios
+// localStorage.setItem('token', 'blabla')
+
 require('./plugins/bootstrap');
+// require('./plugins/interceptors');
 
 import Vue from 'vue'
 Vue.config.productionTip = false
@@ -8,11 +10,12 @@ import vuetify from "./plugins/vuetify.js"
 import router from './plugins/router.js'
 import store from './store'
 import Vuex from "vuex";
+// const { something } = require('../js/components/asd.sj')
+
 Vue.use(Vuex);
 
 // require("./store/subscriber");
 
-// localStorage.setItem('token', 'blabla')
 // let token = localStorage.getItem('token')
 // if (token) {
 //     store.commit('auth/set_initial_token')

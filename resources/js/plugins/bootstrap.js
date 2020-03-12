@@ -1,4 +1,4 @@
-window._ = require('lodash');
+// window._ = require('lodash');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -16,13 +16,13 @@ window.axios = require('axios');
  * a simple convenience so we don't have to attach every token manually.
  */
 
-let csrfToken = document.head.querySelector('meta[name="csrf-token"]');
+// let csrfToken = document.head.querySelector('meta[name="csrf-token"]');
 
-if (csrfToken) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken.content;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+// if (csrfToken) {
+//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken.content;
+// } else {
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+// }
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

@@ -24,7 +24,6 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -39,7 +38,12 @@ class AuthController extends Controller
      */
     public function me()
     {
-        // dd('hi');
+        // $user = $request->user();
+        // return response()->json([
+        //     'email' => $user->email,
+        //     'name' => $user->name,
+        //     'role' => $user->role
+        // ]);
         return response()->json(auth()->user());
     }
 

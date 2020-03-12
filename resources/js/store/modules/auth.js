@@ -26,10 +26,15 @@ export default {
             state.loggedInSnackbar = false
         },
         set_token(state, token) {
-            state.token = token;
+            localStorage.setItem('token', token)
+            state.token = token
+            // localStorage.setItem('token', token)
         },
-        set_token_out(state) {
-            state.token = 'out'
+        // set_token_out(state) {
+        //     state.token = 'out'
+        // },
+        remove_token() {
+            localStorage.removeItem('token');
         },
         set_user(state, data) {
             state.user = data
@@ -59,23 +64,27 @@ export default {
             commit('set_log_load');
         },
         login({ dispatch }, credentials) {
-            axios.post("api/auth/login", credentials).then(response => dispatch('attempt', response.data.token))
+            axios.post("api/auth/login", credentials).then(response => dispatch('verifyToken', response.data.access_token))
         },
         // async attempt({ commit, state }, token) {
-        verifyToken({ commit, state }) {
-            // console.log(state);
-            // commit('set_token', token);
+        verifyToken({ commit }, token) {
+            // console.log(token);
+            commit('set_token', token);
+            // console.log(token)
+            // // return;
+            // // set token in localstorage?
+            // axios.post('api/auth/me', {}, {
             axios.get('api/auth/me', {
                 headers: {
-                    'Authorization': 'Bearer ' + state.token
+                    'Authorization': 'Bearer ' + token
                 }
             }).then(response => {
+                // console.log(response)
                 commit('set_user', response.data)
-                //     console.log(response)
             }).catch(e => {
                 console.log(e)
-                commit('set_token', null)
-                commit('set_user', null)
+                // commit('remove_token')
+                // commit('set_user', null)
             })
             // if (!state.token) {
             //     commit('set_initialToken')
@@ -85,7 +94,7 @@ export default {
             // }
 
             // try {
-            //     let response = axios.get('api/auth/me')
+            //     let response = axios.post('api/auth/me')
             //     commit('set_user', response.data)
             // } catch (e) {
             //     commit('set_token', null)
@@ -94,16 +103,16 @@ export default {
             // axios.get('api/auth/me')
             //     .then(response => {
             //         commit('set_user', response.data)
-            //         commit('deset_log_load')
+            //         // commit('deset_log_load')
             //         // only show dialog when firstly signed in
-            //         commit("open_signedin_dialog")
-            //         console.log(response)
+            //         // commit("open_signedin_dialog")
+            //         // console.log(response)
             //     })
             //     .catch(e => {
             //         console.log(e)
             //         commit('set_token', null)
             //         commit('set_user', null)
-            //         commit('deset_log_load')
+            //         // commit('deset_log_load')
             //     })
         },
         signOut({ commit }) {
@@ -115,7 +124,7 @@ export default {
     },
     getters: {
         unverifiedToken(state) {
-            return state.token && !state.user;
+            return (state.token && !state.user) ? state.token : false
         },
         signedInDialog(state) {
             return state.signedInDialog;

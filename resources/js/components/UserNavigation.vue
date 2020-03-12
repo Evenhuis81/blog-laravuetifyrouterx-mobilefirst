@@ -118,7 +118,7 @@ export default {
   },
   created() {
     if (this.unverifiedToken) {
-      this.verifyToken();
+      this.verifyToken(this.unverifiedToken);
     }
   }
 };
