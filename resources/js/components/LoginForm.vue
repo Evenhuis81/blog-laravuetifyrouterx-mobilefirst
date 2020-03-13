@@ -43,8 +43,6 @@ import { mapGetters } from "vuex";
 
 export default {
   data: () => ({
-    // signedInDialog: false,
-    // autofocus: true,
     errors: {
       loginForm: ""
     },
@@ -69,9 +67,6 @@ export default {
     ...mapGetters({ loginLoading: "auth/loginLoading" })
   },
   methods: {
-    // autoFocus() {
-    //   console.log("hi");
-    // },
     closeDialog() {
       this.resetLoginForm();
       this.$emit("close");
@@ -83,11 +78,7 @@ export default {
     }),
     submitLoginForm() {
       if (this.$refs.form.validate()) {
-        // this.$emit("disable");
-        // this.loading = true;
-        // this.setLoginLoading();
         this.login(this.form);
-        // this.signedInDialog();
       } else {
         this.errors.loginForm =
           "Something went wrong with validation, contact support!!";
@@ -98,12 +89,8 @@ export default {
       this.errors.loginForm = "";
       this.form.email = "";
       this.form.password = "";
-      // this.$refs.form.reset();
       this.$refs.form.resetValidation();
     }
-    // resetValidation() {
-    //   this.$refs.form.resetValidation();
-    // }
   }
 };
 </script>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthController extends Controller
 {
@@ -44,6 +46,9 @@ class AuthController extends Controller
         //     'name' => $user->name,
         //     'role' => $user->role
         // ]);
+        // var_dump(auth()->user());
+        // var_dump(Auth::guard('api')->user());
+        // exit();
         return response()->json(auth()->user());
     }
 
